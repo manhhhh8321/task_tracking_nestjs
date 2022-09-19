@@ -27,6 +27,9 @@ export class AuthGuard implements CanActivate {
 
     // apply user property to request
     req.user = user;
+
+
+    
     if (!apiPermissions || !apiPermissions.length) {
       return true;
     }
