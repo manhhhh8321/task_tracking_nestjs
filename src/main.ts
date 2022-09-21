@@ -4,6 +4,7 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import { useContainer } from 'class-validator';
 import morgan from 'morgan';
+import bodyParser from 'body-parser';
 
 import { AppModule } from './app.module';
 import { ConfigService } from './shared/config/config.service';

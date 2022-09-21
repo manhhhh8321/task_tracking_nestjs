@@ -23,16 +23,34 @@ export class UsersController {
   }
 
   @Get(':id')
+  @Auth([
+    {
+      userType: UserType.ADMIN,
+      permission: 'full-access',
+    },
+  ])
   async findById(@Param('id') id: string) {
     return this.usersService.findById(id);
   }
 
   @Get()
+  @Auth([
+    {
+      userType: UserType.ADMIN,
+      permission: 'full-access',
+    },
+  ])
   async getAll() {
     return this.usersService.getAll();
   }
 
   @Put(':id')
+  @Auth([
+    {
+      userType: UserType.ADMIN,
+      permission: 'full-access',
+    },
+  ])
   async edit(@Param('id') id: string, @Body() payload: UpdateUserDto) {
     return this.usersService.edit(id, payload);
   }

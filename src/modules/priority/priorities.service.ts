@@ -27,7 +27,7 @@ export class PrioritiesService {
   }
 
   async getAll() {
-    const rs = await this.priorityModel.find();
+    const rs = await this.priorityModel.find().sort({ orderNumber: 1 });
     return rs;
   }
 

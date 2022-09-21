@@ -1,10 +1,10 @@
 import { IsInt, IsString, Min } from 'class-validator';
 
-export class CreatePriorityDto {
+export class createStatusDto {
   @IsString()
-  priorName: string;
+  statusName: string;
 
   @IsInt()
   @Min(0)
-  orderNumber: string;
+  orderNumber: number;
 }

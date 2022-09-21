@@ -8,7 +8,7 @@ import { TypeDocument } from './schema/type.schema';
 export class TypeService {
   constructor(@InjectModel('Type') private readonly typeModel: Model<TypeDocument>) {}
 
-  async create(payload: CreateTypeDto) {
+  async create(payload: any) {
     const type = await this.typeModel.findOne({ name: payload.typeName });
 
     if (type) {
@@ -19,10 +19,26 @@ export class TypeService {
 
     const newType = new this.typeModel({
       ...payload,
+      defaultColor: 'white',
       visible: true,
     });
 
     const rs = await newType.save();
+
+    const allTypes = await this.typeModel.find();
+
+    for (let el of allTypes) {
+      if (el.typeName === 'default') {
+        el.defaultColor = 'white';
+      }
+      if (el.typeName === 'bug') {
+        el.defaultColor = 'red';
+      }
+      if (el.typeName === 'feature') {
+        el.defaultColor = 'blue';
+      }
+    }
+
     return rs;
   }
 
