@@ -2,7 +2,7 @@ import { Body, Controller, Get, Post, Put, Param } from '@nestjs/common';
 import { CreatePriorityDto } from './dto/priorities.dto';
 import { PrioritiesService } from './priorities.service';
 
-@Controller()
+@Controller('priority')
 export class PriorityController {
   constructor(private readonly prioritiesService: PrioritiesService) {}
 
