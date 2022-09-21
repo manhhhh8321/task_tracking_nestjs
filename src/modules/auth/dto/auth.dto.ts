@@ -8,6 +8,5 @@ export class LoginDto {
   email: string;
 
   @IsString()
-  @IsMatchPattern(PASSWORD_PATTERN)
   password: string;
 }

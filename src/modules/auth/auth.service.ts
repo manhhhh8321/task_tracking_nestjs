@@ -1,4 +1,6 @@
 import { Injectable } from '@nestjs/common';
+import { EncryptHelper } from 'src/helpers/encrypt.helper';
+import { ErrorHelper } from 'src/helpers/error.utils';
 import { TokenHelper } from 'src/helpers/token.helper';
 import { ConfigService } from 'src/shared/config/config.service';
 
@@ -12,7 +14,14 @@ export class AuthService {
 
   async login(params: LoginDto) {
     console.log(params);
-    const user = await this.userService.findOne();
+    const user = await this.userService.getByEmail(params.email);
+
+    const isMatch = await EncryptHelper.compare(params.password, user.password);
+
+    if (!isMatch) {
+      ErrorHelper.BadRequestException('Invalid email or password');
+    }
+
     return this._generateToken(user.id);
   }
 
