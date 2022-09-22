@@ -22,7 +22,7 @@ export class AuthService {
       ErrorHelper.BadRequestException('Invalid email or password');
     }
 
-    return this._generateToken(user.id);
+    return this._generateToken(user._id.toString());
   }
 
   async verifyUser(id: string) {

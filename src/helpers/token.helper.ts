@@ -32,7 +32,7 @@ export class TokenHelper {
   }
 
   /**
-   * Verifys token helper
+   * Verify token helper
    * @param token
    * @param secret
    */
@@ -43,6 +43,7 @@ export class TokenHelper {
         algorithms: ['HS256'],
       };
       const payload = jwt.verify(token, secret, options);
+
       return payload as any;
     } catch (error) {
       if (error.name === 'TokenExpiredError') ErrorHelper.UnauthorizedException('Access token expired');
