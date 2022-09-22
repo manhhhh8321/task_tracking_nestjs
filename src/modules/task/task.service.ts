@@ -20,13 +20,6 @@ export class TaskServices {
 
   async create(payload: CreateTaskDto) {
     const { taskName, status, type, assignee, project, priority } = payload;
-    const task = await this.taskModel.findOne({ name: payload.taskName });
-
-    if (task) {
-      return {
-        message: 'Task name already exist',
-      };
-    }
 
     // Check if payload is empty
 
@@ -95,10 +88,11 @@ export class TaskServices {
       end_date: payload.end_date,
     });
 
-    // Update user task
-    assignees.task.push(newTask._id);
-    await assignees.save();
     const rs = await newTask.save();
+    // Update user task
+    await this.userModel.updateOne({ _id: assignees._id }, { $push: { task: newTask._id } });
+    await this.projectModel.updateOne({ _id: projects._id }, { $push: { tasks: newTask._id } });
+
     return rs;
   }
 
@@ -189,6 +183,11 @@ export class TaskServices {
   // Delete task
   async delete(id: string) {
     const rs = await this.taskModel.findByIdAndDelete(id);
+
+    await this.userModel.updateOne({ _id: rs.assignee }, { $pull: { task: rs._id } });
+
+    await this.projectModel.updateOne({ _id: rs.project }, { $pull: { tasks: rs._id } });
+
     return rs;
   }
 }

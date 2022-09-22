@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module } from '@nestjs/common';
 
 import { AuthModule } from './modules/auth/auth.module';
 import { ConfigModule } from './shared/config/config.module';
@@ -9,6 +9,8 @@ import { PrioritiesModule } from './modules/priority/priorities.module';
 import { TypeModule } from './modules/type/type.module';
 import { StatusModule } from './modules/status/status.module';
 import { TaskModule } from './modules/task/task.module';
+import { UserProjectModule } from './modules/user_project/user-project.module';
+import { UserTaskModule } from './modules/user_task/user-task.module';
 
 @Module({
   imports: [
@@ -21,6 +23,8 @@ import { TaskModule } from './modules/task/task.module';
     TypeModule,
     StatusModule,
     TaskModule,
+    UserProjectModule,
+    UserTaskModule,
   ],
 })
 export class AppModule {}

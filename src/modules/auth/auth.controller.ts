@@ -8,11 +8,6 @@ import { LoginDto } from './dto/auth.dto';
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
-  @Get('ping')
-  async ping() {
-    return 'PONG';
-  }
-
   @Post('login')
   async login(@Body() payload: LoginDto, @Res() res: Response) {
     const { accessToken, refreshToken, expires } = await this.authService.login(payload);
